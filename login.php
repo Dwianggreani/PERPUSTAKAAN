@@ -1,14 +1,32 @@
 <?php
-        ob_start();
-        session_start();
-        $koneksi = new mysqli ("localhost","root","","perpustakaan_smansabare");
 
-        if ($_SESSION['admin'] || $_SESSION['user']) {
+require 'function.php';
+        // ob_start();
+        // session_start();
+        // $koneksi = new mysqli ("localhost","root","","perpustakaan_smansabare");
 
-            header("location : index.php");
-        }else {
-            
-       
+        // if ($_SESSION['admin'] || $_SESSION['user']) {
+
+        //     header("location : index.php");
+        // }else {
+        
+        
+        if (isset($_POST["login"])) {
+            $username = $_POST["username"];
+            $password = $_POST["password"];
+
+            $result =  mysqli_query($con, "SELECT * FROM user WHERE username = '$username'");
+
+            if (mysqli_num_rows($result) === 1 ) {
+                $row = mysqli_fetch_assoc($result);
+                if (password_verify($password, $row["password"])){
+                    header("Location : index2.php");
+                    exit;
+                }
+            }
+
+            $error = true;
+        }
 
 ?>
 
@@ -34,42 +52,37 @@
             <div class="col-md-12">
                 <br /><br />
                 <h2> Halaman Login</h2>
-               
-               
-               
-                 <br />
+                <br />
             </div>
         </div>
-         <div class="row ">
-               
-                  <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                        <strong>   Masukkan Username Dan Password </strong>  
-                            </div>
-                            <div class="panel-body">
-                                <form role="form" method="POST">
-                                       <br />
-                                     <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
-                                            <input type="text" name = "username" class="form-control" placeholder="Your Username " />
-                                        </div>
-                                            <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                            <input type="password" name="password" class="form-control"  placeholder="Your Password" />
-                                        </div>
-
-                                   <input type="submit" name= "login" Value="Login" class="btn btn-primary ">
-                                    
-                                    
-                                    </form>
-                            </div>
-                           
-                        </div>
+        <div class="row ">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                <strong>   Masukkan Username Dan Password </strong>  
+                <?php if (isset($error)) : ?>
+                    <p> wrong username / password</p>
+                <?php endif; ?>
                     </div>
-                
-                
+                    <div class="panel-body">
+                        <form action="" method="post">
+                                <br />
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="fa fa-tag" ></i></span>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="Your Username " />
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                <input type="password" name="password" id="password" class="form-control"  placeholder="Your Password" />
+                            </div>
+
+                            <button type="submit" name="login" >Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 
 
@@ -86,8 +99,8 @@
 </body>
 </html>
 
+<!-- 
 
-<?php
     if (isset($_POST['login'])) {
        
         $username = $_POST['username'];
@@ -118,10 +131,8 @@
             alert("Login Gagal Username dan Password SALAH....Silahkan Ulangi lagi !");
             </script>
             
-            <?php
+            
         }
     }
 
-}
-
-?>
+} -->

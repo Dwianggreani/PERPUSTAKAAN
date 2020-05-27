@@ -1,7 +1,6 @@
-<?php error_reporting(E_ALL^(E_NOTICE | E_WARNING));?>
+<!-- error_reporting(E_ALL^(E_NOTICE | E_WARNING));?> -->
 
-
-<?php
+<!-- 
 
     session_start();
 
@@ -14,8 +13,7 @@
 
 
       
-   
-?>
+    -->
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -162,10 +160,10 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="logout.php" class="
    
 </body>
 </html>
+<!-- 
 
-<?php
     }else {
         
         header("location:login.php");
     }
-?>
+-->
