@@ -1,5 +1,7 @@
 <?php
 
+$con = mysqli_connect("localhost","root","","perpustakaan_smansabare");
+
 function terlambat($tgl_dateline, $tgl_kembali){
 
 $tgl_dateline_pecah = explode("-", $tgl_dateline);
